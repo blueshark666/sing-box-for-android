@@ -20,6 +20,12 @@ object ProfileManager {
         callbacks.remove(callback)
     }
 
+    fun triggerCallbacks() {
+        for (callback in callbacks.toList()) {
+            callback()
+        }
+    }
+
     @OptIn(DelicateCoroutinesApi::class)
     private val instance by lazy {
         Application.application.getDatabasePath(Path.PROFILES_DATABASE_PATH).parentFile?.mkdirs()

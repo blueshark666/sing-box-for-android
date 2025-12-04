@@ -149,8 +149,7 @@ object DefaultNetworkMonitor {
 
             // 通知UI配置文件变化
             GlobalScope.launch(Dispatchers.Main) {
-                ProfileManager.registerCallback({})
-                ProfileManager.unregisterCallback({})
+                ProfileManager.triggerCallbacks()
             }
 
             Libbox.newStandaloneCommandClient().serviceReload()
