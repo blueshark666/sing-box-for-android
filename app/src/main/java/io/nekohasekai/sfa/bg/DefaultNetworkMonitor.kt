@@ -43,6 +43,8 @@ object DefaultNetworkMonitor {
             DefaultNetworkListener.get()
         }
         currentNetworkType = getNetworkType(defaultNetwork)
+        // 服务启动时立即根据当前网络类型切换配置
+        onNetworkTypeChanged(currentNetworkType)
     }
 
     suspend fun stop() {
