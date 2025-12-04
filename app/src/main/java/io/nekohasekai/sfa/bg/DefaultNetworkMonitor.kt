@@ -147,6 +147,12 @@ object DefaultNetworkMonitor {
             // 更新当前选中的配置文件
             Settings.selectedProfile = targetProfile.id
 
+            // 通知UI配置文件变化
+            GlobalScope.launch(Dispatchers.Main) {
+                ProfileManager.registerCallback({})
+                ProfileManager.unregisterCallback({})
+            }
+
             Libbox.newStandaloneCommandClient().serviceReload()
         }
     }
