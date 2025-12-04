@@ -15,6 +15,10 @@ object SettingsKey {
 
     const val SYSTEM_PROXY_ENABLED = "system_proxy_enabled"
 
+    // network profile
+    const val WIFI_DEFAULT_PROFILE = "wifi_default_profile"
+    const val MOBILE_DEFAULT_PROFILE = "mobile_default_profile"
+
     // cache
 
     const val STARTED_BY_USER = "started_by_user"

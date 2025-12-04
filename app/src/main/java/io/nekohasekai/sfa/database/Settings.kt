@@ -39,6 +39,8 @@ object Settings {
     var selectedProfile by dataStore.long(SettingsKey.SELECTED_PROFILE) { -1L }
     var serviceMode by dataStore.string(SettingsKey.SERVICE_MODE) { ServiceMode.NORMAL }
     var startedByUser by dataStore.boolean(SettingsKey.STARTED_BY_USER)
+    var wifiDefaultProfile by dataStore.long(SettingsKey.WIFI_DEFAULT_PROFILE) { -1L }
+    var mobileDefaultProfile by dataStore.long(SettingsKey.MOBILE_DEFAULT_PROFILE) { -1L }
 
     var checkUpdateEnabled by dataStore.boolean(SettingsKey.CHECK_UPDATE_ENABLED) { true }
     var disableMemoryLimit by dataStore.boolean(SettingsKey.DISABLE_MEMORY_LIMIT)
