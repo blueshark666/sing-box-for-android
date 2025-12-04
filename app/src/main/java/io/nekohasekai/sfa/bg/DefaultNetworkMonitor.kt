@@ -6,10 +6,9 @@ import android.os.Build
 import io.nekohasekai.libbox.InterfaceUpdateListener
 import io.nekohasekai.sfa.Application
 import io.nekohasekai.sfa.constant.Bugs
-import io.nekohasekai.sfa.database.Profile
+import io.nekohasekai.libbox.Libbox
 import io.nekohasekai.sfa.database.ProfileManager
-import io.nekohasekai.sfa.service.BoxService
-import io.nekohasekai.sfa.settings.Settings
+import io.nekohasekai.sfa.database.Settings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -148,12 +147,7 @@ object DefaultNetworkMonitor {
             // 更新当前选中的配置文件
             Settings.selectedProfile = targetProfile.id
 
-            // 如果服务已启动，需要重新加载或重启服务
-            if (BoxService.started) {
-                // 直接重启服务以应用新的配置文件
-                BoxService.stop()
-                BoxService.start(Application.application)
-            }
+            Libbox.newStandaloneCommandClient().serviceReload()
         }
     }
 
