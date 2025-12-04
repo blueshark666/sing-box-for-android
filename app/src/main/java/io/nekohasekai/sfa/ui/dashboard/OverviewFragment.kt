@@ -330,49 +330,11 @@ class OverviewFragment : Fragment() {
             binding.profileName.text = profile.name
             binding.profileSelected.setOnCheckedChangeListener(null)
             binding.profileSelected.isChecked = profile.id == adapter.selectedProfileID
-            binding.profileSelected.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    adapter.parent.profileList.isClickable = false
-                    adapter.selectedProfileID = profile.id
-                    adapter.lastSelectedIndex?.let { index ->
-                        adapter.notifyItemChanged(index)
-                    }
-                    adapter.lastSelectedIndex = adapterPosition
-                    adapter.scope.launch(Dispatchers.IO) {
-                        switchProfile(profile)
-                        withContext(Dispatchers.Main) {
-                            adapter.parent.profileList.isEnabled = true
-                        }
-                    }
-                }
-            }
-            binding.root.setOnClickListener {
-                binding.profileSelected.toggle()
-            }
-        }
-
-        private suspend fun switchProfile(profile: Profile) {
-            Settings.selectedProfile = profile.id
-            val mainActivity = (binding.root.context as? MainActivity) ?: return
-            val started = mainActivity.serviceStatus.value == Status.Started
-            if (!started) {
-                return
-            }
-            val restart = Settings.rebuildServiceMode()
-            if (restart) {
-                mainActivity.reconnect()
-                BoxService.stop()
-                delay(1000L)
-                mainActivity.startService()
-                return
-            }
-            runCatching {
-                Libbox.newStandaloneCommandClient().serviceReload()
-            }.onFailure {
-                withContext(Dispatchers.Main) {
-                    mainActivity.errorDialogBuilder(it).show()
-                }
-            }
+            // 移除手动切换功能，因为现在采用自动切换
+            binding.profileSelected.isClickable = false
+            binding.root.isClickable = false
+            // 添加不可交互的视觉效果
+            binding.profileName.isEnabled = false
         }
     }
 
