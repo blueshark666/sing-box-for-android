@@ -13,3 +13,5 @@ local.properties
 /CLAUDE.md
 /.claude/
 app/other/release
+/app/src/main/jniLibs
+/sign-files

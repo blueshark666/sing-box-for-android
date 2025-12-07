@@ -13,6 +13,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.NetworkInterface
+import kotlinx.coroutines.delay
+
 
 object DefaultNetworkMonitor {
 
@@ -156,6 +158,8 @@ object DefaultNetworkMonitor {
 
             // 更新当前选中的配置文件
             Settings.selectedProfile = targetProfileId
+
+            delay(200)
 
             // 通知UI配置文件变化
             GlobalScope.launch(Dispatchers.Main) {
