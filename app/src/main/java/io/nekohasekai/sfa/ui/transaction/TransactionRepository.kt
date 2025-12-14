@@ -30,7 +30,15 @@ class TransactionRepository {
         val response = client.get("http://10.147.20.245:4080/ibkr/positions")
         val jsonString = response.bodyAsText()
         Log.d("TransactionRepository", "API Response: $jsonString")
-        return jsonParser.decodeFromString<List<PositionResponse>>(jsonString)
+        
+        // 添加调试日志，检查解析后的数据
+        val positions = jsonParser.decodeFromString<List<PositionResponse>>(jsonString)
+        Log.d("TransactionRepository", "Parsed positions: ${positions.size} items")
+        for ((index, position) in positions.withIndex()) {
+            Log.d("TransactionRepository", "Position $index: symbol=${position.contract.m_symbol}, quantity=${position.quantity}, avgPrice=${position.avgPrice}")
+        }
+        
+        return positions
     }
 
     suspend fun fetchAccountInfo(accountId: String): AccountInfoResponse {
