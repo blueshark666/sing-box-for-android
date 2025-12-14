@@ -27,6 +27,7 @@ import io.nekohasekai.sfa.ktx.text
 import io.nekohasekai.sfa.ui.MainActivity
 import io.nekohasekai.sfa.ui.debug.DebugActivity
 import io.nekohasekai.sfa.ui.profileoverride.ProfileOverrideActivity
+import io.nekohasekai.sfa.ui.transaction.TransactionActivity
 import io.nekohasekai.sfa.vendor.Vendor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,6 +115,12 @@ class SettingsFragment : Fragment() {
         }
         binding.startSponserButton.setOnClickListener {
             activity.launchCustomTab("https://sekai.icu/sponsors/")
+        }
+
+        // 交易页面按钮
+        binding.openTransactionButton.setOnClickListener {
+            val intent = Intent(requireContext(), TransactionActivity::class.java)
+            startActivity(intent)
         }
         lifecycleScope.launch(Dispatchers.IO) {
             reloadSettings()

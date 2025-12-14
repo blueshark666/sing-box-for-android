@@ -7,6 +7,7 @@ plugins {
     id "com.google.devtools.ksp"
     id "org.jetbrains.kotlin.plugin.compose"
     id "com.github.triplet.play"
+    id "org.jetbrains.kotlin.plugin.serialization" version "2.2.0"
 }
 
 android {
@@ -120,6 +121,11 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.10.3"
     implementation "androidx.browser:browser:1.9.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
+    implementation "io.ktor:ktor-client-core:2.3.11"
+    implementation "io.ktor:ktor-client-cio:2.3.11"
+    implementation "io.ktor:ktor-client-content-negotiation:2.3.11"
+    implementation "io.ktor:ktor-serialization-kotlinx-json:2.3.11"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1"
 
     // DO NOT UPDATE (minSdkVersion updated)
     implementation "com.blacksquircle.ui:editorkit:2.2.0"

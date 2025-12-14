@@ -8,6 +8,7 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
@@ -135,6 +136,9 @@
 
         <activity
             android:name="io.nekohasekai.sfa.ui.profile.QRScanActivity"
+            android:exported="false" />
+        <activity
+            android:name="io.nekohasekai.sfa.ui.transaction.TransactionActivity"
             android:exported="false" />
 
         <service

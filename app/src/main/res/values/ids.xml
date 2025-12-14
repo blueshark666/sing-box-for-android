@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="accountLoadingText" type="id" />
+    <item name="accountInfoContainer" type="id" />
+    <item name="accountName" type="id" />
+    <item name="accountType" type="id" />
+    <item name="netLiquidation" type="id" />
+    <item name="totalCashValue" type="id" />
+    <item name="buyingPower" type="id" />
+    <item name="excessLiquidity" type="id" />
+    <item name="availableFunds" type="id" />
+    <item name="unrealizedPnL" type="id" />
+    <item name="realizedPnL" type="id" />
+    <item name="equityWithLoanValue" type="id" />
+    <item name="sma" type="id" />
+    <item name="initMarginReq" type="id" />
+    <item name="maintMarginReq" type="id" />
+    <item name="loadingText" type="id" />
+    <item name="positionsRecyclerView" type="id" />
+    <item name="conid" type="id" />
+    <item name="symbol" type="id" />
+    <item name="secType" type="id" />
+    <item name="lastTradeDate" type="id" />
+    <item name="multiplier" type="id" />
+    <item name="localSymbol" type="id" />
+    <item name="quantity" type="id" />
+    <item name="avgPrice" type="id" />
+</resources>
