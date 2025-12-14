@@ -24,13 +24,7 @@ import kotlinx.serialization.json.Json
 class TransactionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTransactionBinding
-    private val client = HttpClient(CIO) {
-        install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys = true
-            })
-        }
-    }
+    private val repository = TransactionRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,15 +42,7 @@ class TransactionActivity : AppCompatActivity() {
     private fun fetchPositions() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = client.get("http://10.147.20.245:4080/ibkr/positions")
-                val jsonString = response.bodyAsText()
-                
-                Log.d("TransactionActivity", "API Response: $jsonString")
-                
-                // 解析JSON数据
-                val positions = Json {
-                    ignoreUnknownKeys = true
-                }.decodeFromString<List<PositionResponse>>(jsonString)
+                val positions = repository.fetchPositions()
                 
                 // 更新UI
                 withContext(Dispatchers.Main) {
@@ -79,15 +65,7 @@ class TransactionActivity : AppCompatActivity() {
     private fun fetchAccountInfo() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = client.get("http://10.147.20.245:4080/ibkr/account/DU9965361")
-                val jsonString = response.bodyAsText()
-                
-                Log.d("TransactionActivity", "Account API Response: $jsonString")
-                
-                // 解析JSON数据
-                val accountInfo = Json {
-                    ignoreUnknownKeys = true
-                }.decodeFromString<AccountInfoResponse>(jsonString)
+                val accountInfo = repository.fetchAccountInfo("DU9965361")
                 
                 // 更新UI
                 withContext(Dispatchers.Main) {
@@ -120,6 +98,6 @@ class TransactionActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        client.close()
+        repository.close()
     }
 }
