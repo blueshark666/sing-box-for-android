@@ -25,6 +25,9 @@
             <include
                 android:id="@+id/positionsInfoCard"
                 layout="@layout/card_positions_info" />
+            <include
+                android:id="@+id/transactionsInfoCard"
+                layout="@layout/card_transactions_info" />
 
         </LinearLayout>
 

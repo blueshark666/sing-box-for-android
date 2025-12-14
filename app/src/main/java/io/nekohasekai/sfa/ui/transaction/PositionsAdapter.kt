@@ -30,7 +30,7 @@ class PositionsAdapter(
             // 计算实际平均价格 (avgPrice / multiplier)
             val actualAvgPrice = try {
                 val avgPrice = position.avgPrice
-                val multiplier = position.contract.m_multiplier.toDoubleOrNull() ?: 1.0
+                val multiplier = position.contract.m_multiplier?.toDoubleOrNull() ?: 1.0
                 avgPrice / multiplier
             } catch (e: Exception) {
                 Log.e("PositionsAdapter", "Error calculating actual avg price: ${e.message}")
