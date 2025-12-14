@@ -71,12 +71,12 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="详细信息"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="#666666"
-                android:gravity="start" />
+                android:gravity="center" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -48,11 +48,11 @@
         android:id="@+id/detailButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:text="详情"
-        android:textAppearance="?attr/textAppearanceBodyMedium"
-        android:gravity="start"
-        android:padding="8dp" />
+        android:textAppearance="?attr/textAppearanceBodySmall"
+        android:gravity="center"
+        android:padding="4dp" />
 
     </LinearLayout>
 

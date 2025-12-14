@@ -197,8 +197,7 @@ class TransactionActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Log.d("TransactionActivity", "Updating UI with ${orders.size} orders")
                     binding.transactionsInfoCard.transactionsLoadingText.visibility = View.GONE
-                    binding.transactionsInfoCard.transactionsHeader.visibility = View.VISIBLE
-                    binding.transactionsInfoCard.transactionsRecyclerView.visibility = View.VISIBLE
+                    binding.transactionsInfoCard.transactionsScrollView.visibility = View.VISIBLE
                     
                     // 设置RecyclerView
                     binding.transactionsInfoCard.transactionsRecyclerView.layoutManager = LinearLayoutManager(this@TransactionActivity)

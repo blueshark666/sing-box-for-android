@@ -47,68 +47,87 @@
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:visibility="visible" />
 
-        <!-- 表头 -->
-        <LinearLayout
-            android:id="@+id/transactionsHeader"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#F5F5F5"
-            android:padding="8dp"
             android:visibility="gone"
-            android:layout_marginTop="16dp">
-            <TextView
-                android:layout_width="0dp"
+            android:id="@+id/transactionsScrollView">
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="日期"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="#666666"
-                android:gravity="start" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="代码"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="#666666"
-                android:gravity="start" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="数量"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="#666666"
-                android:gravity="start" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="价格"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="#666666"
-                android:gravity="start" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="详细信息"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="#666666"
-                android:gravity="start" />
-        </LinearLayout>
+                android:orientation="vertical">
+                
+                <!-- 表头 -->
+                <LinearLayout
+                    android:id="@+id/transactionsHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="#F5F5F5"
+                    android:visibility="visible"
+                    android:layout_marginTop="16dp">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="代码"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="#666666"
+                        android:gravity="start"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="方向"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="#666666"
+                        android:gravity="start"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="数量"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="#666666"
+                        android:gravity="start"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="价格"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="#666666"
+                        android:gravity="start"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="状态"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="#666666"
+                        android:gravity="start"
+                        android:padding="8dp" />
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="详细信息"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="#666666"
+                        android:gravity="center"
+                        android:padding="8dp" />
+                </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/transactionsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/transactionsRecyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
     </LinearLayout>
 
