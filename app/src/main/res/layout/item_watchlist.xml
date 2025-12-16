@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/watchlistSymbol"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="Symbol" />
+
+    <TextView
+        android:id="@+id/watchlistSecType"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="SecType" />
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/watchlistAsk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:text="Ask"
+            android:textColor="#FF5252"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/watchlistBid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:text="Bid"
+            android:textColor="#4CAF50"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- 添加交易按钮 -->
+    <Button
+        android:id="@+id/watchlistTradeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="交易"
+        android:textSize="12sp"
+        android:padding="8dp"
+        android:background="?attr/colorPrimary" />
+
+</LinearLayout>

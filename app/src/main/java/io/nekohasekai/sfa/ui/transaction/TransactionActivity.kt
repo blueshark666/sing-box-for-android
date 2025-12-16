@@ -25,6 +25,8 @@ import io.nekohasekai.sfa.ui.transaction.model.AccountInfoResponse
 import io.nekohasekai.sfa.ui.transaction.model.PositionResponse
 import io.nekohasekai.sfa.ui.transaction.OrdersAdapter
 import io.nekohasekai.sfa.ui.transaction.model.OrderResponse
+import io.nekohasekai.sfa.ui.transaction.model.WatchlistResponse
+import io.nekohasekai.sfa.ui.transaction.WatchlistAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,8 +55,43 @@ class TransactionActivity : AppCompatActivity() {
         fetchAccountInfo()
         fetchPositions()
         fetchOrders()
+        fetchWatchlist()
     }
 
+    private fun fetchWatchlist() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val watchlist = repository.fetchWatchlist()
+                Log.d("TransactionActivity", "Fetched ${watchlist.size} watchlist items")
+                
+                // 更新UI
+                withContext(Dispatchers.Main) {
+                    Log.d("TransactionActivity", "Updating UI with ${watchlist.size} watchlist items")
+                    binding.watchlistInfoCard.watchlistLoadingText.visibility = View.GONE
+                    binding.watchlistInfoCard.watchlistHeader.visibility = View.VISIBLE
+                    binding.watchlistInfoCard.watchlistRecyclerView.visibility = View.VISIBLE
+                    
+                    // 设置RecyclerView
+                    binding.watchlistInfoCard.watchlistRecyclerView.layoutManager = LinearLayoutManager(this@TransactionActivity)
+                    binding.watchlistInfoCard.watchlistRecyclerView.adapter = WatchlistAdapter(watchlist) {
+                        // 自动填充conid和当前价格（如果有）
+                        val conid = it.conid
+                        // 对于买入使用卖价，卖出使用买价
+                        val price = it.priceHolder.bid // 这里可以根据交易方向选择价格，暂时默认使用买价
+                        showSubmitOrderDialog(conid, price)
+                    }
+                    Log.d("TransactionActivity", "Watchlist RecyclerView adapter set with ${watchlist.size} items")
+                }
+            } catch (e: Exception) {
+                Log.e("TransactionActivity", "Error fetching watchlist: ${e.message}")
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    binding.watchlistInfoCard.watchlistLoadingText.text = "加载失败: ${e.message}"
+                    binding.watchlistInfoCard.watchlistLoadingText.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
     private fun fetchPositions() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -239,7 +276,8 @@ class TransactionActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showSubmitOrderDialog() {
+    // 提取为可重用的提交订单对话框，接受conid和price参数以便自动填充
+    private fun showSubmitOrderDialog(conid: Long? = null, price: Double? = null) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_submit_order)
         dialog.setTitle("提交订单")
@@ -263,6 +301,14 @@ class TransactionActivity : AppCompatActivity() {
         actionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerAction.adapter = actionAdapter
 
+        // 自动填充conid和price（如果提供）
+        conid?.let {
+            dialog.findViewById<EditText>(R.id.editTextConid)?.setText(it.toString())
+        }
+        price?.let {
+            dialog.findViewById<EditText>(R.id.editTextPrice)?.setText(String.format("%.2f", it))
+        }
+
         // 设置取消按钮点击事件
         dialog.findViewById<Button>(R.id.buttonCancel)?.setOnClickListener {
             dialog.dismiss()
@@ -272,13 +318,13 @@ class TransactionActivity : AppCompatActivity() {
         dialog.findViewById<Button>(R.id.buttonSubmit)?.setOnClickListener {
             try {
                 // 获取用户输入的参数
-                val conid = dialog.findViewById<EditText>(R.id.editTextConid)?.text?.toString()?.toIntOrNull()
+                val orderConid = dialog.findViewById<EditText>(R.id.editTextConid)?.text?.toString()?.toLongOrNull()
                 val action = spinnerAction.selectedItem?.toString()
                 val quantity = dialog.findViewById<EditText>(R.id.editTextQuantity)?.text?.toString()?.toIntOrNull()
-                val price = dialog.findViewById<EditText>(R.id.editTextPrice)?.text?.toString()?.toDoubleOrNull()
+                val orderPrice = dialog.findViewById<EditText>(R.id.editTextPrice)?.text?.toString()?.toDoubleOrNull()
 
                 // 验证参数
-                if (conid == null || action == null || quantity == null || price == null) {
+                if (orderConid == null || action == null || quantity == null || orderPrice == null) {
                     showToast("请填写所有必填参数")
                     return@setOnClickListener
                 }
@@ -286,13 +332,13 @@ class TransactionActivity : AppCompatActivity() {
                 // 提交订单
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val success = repository.submitOrder(conid, action, quantity, price)
+                        val success = repository.submitOrder(orderConid, action, quantity, orderPrice)
                         withContext(Dispatchers.Main) {
                             if (success) {
                                 showToast("订单提交成功")
                                 dialog.dismiss()
                                 // 重新加载交易记录
-                        fetchOrders()
+                                fetchOrders()
                             } else {
                                 showToast("订单提交失败")
                             }

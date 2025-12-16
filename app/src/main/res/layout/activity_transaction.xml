@@ -28,6 +28,9 @@
             <include
                 android:id="@+id/transactionsInfoCard"
                 layout="@layout/card_transactions_info" />
+            <include
+                android:id="@+id/watchlistInfoCard"
+                layout="@layout/card_watchlist_info" />
 
         </LinearLayout>
 
