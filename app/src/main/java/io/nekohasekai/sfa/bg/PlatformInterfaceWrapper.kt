@@ -21,6 +21,7 @@ import java.net.Inet6Address
 import java.net.InetSocketAddress
 import java.net.InterfaceAddress
 import java.net.NetworkInterface
+import java.net.SocketException
 import java.security.KeyStore
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -62,8 +63,9 @@ interface PlatformInterfaceWrapper : PlatformInterface {
             return owner
         } catch (e: Exception) {
             Log.e("PlatformInterface", "getConnectionOwnerUid", e)
-            e.printStackTrace(System.err)
-            throw e
+            // 不打印堆栈跟踪到System.err，避免额外日志
+            // 返回一个默认的UID，避免应用崩溃
+            return -1
         }
     }
 
@@ -97,7 +99,7 @@ interface PlatformInterfaceWrapper : PlatformInterface {
                     else -> Libbox.InterfaceTypeOther
                 }
             boxInterface.index = networkInterface.index
-            runCatching {
+            try {
                 boxInterface.mtu = networkInterface.mtu
             }.onFailure {
                 Log.e(
@@ -105,6 +107,14 @@ interface PlatformInterfaceWrapper : PlatformInterface {
                     "failed to get mtu for interface ${boxInterface.name}",
                     it,
                 )
+                // 设置一个默认的MTU值
+                boxInterface.mtu = 1500
+            } catch (e: Exception) {
+                Log.e(
+                    "PlatformInterface", "failed to get mtu for interface ${boxInterface.name}", e
+                )
+                // 设置一个默认的MTU值
+                boxInterface.mtu = 1500
             }
             boxInterface.addresses =
                 StringArray(

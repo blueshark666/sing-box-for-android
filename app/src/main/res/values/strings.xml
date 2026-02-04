@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <!-- App -->
-    <string name="app_name" translatable="false">sing-box</string>
     <string name="app_version_title">App version</string>
+    <string name="app_name" translatable="false">AutoSwitch</string>
 
     <!-- Common Actions -->
     <string name="ok">OK</string>

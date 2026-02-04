@@ -12,3 +12,6 @@ local.properties
 /service-account-credentials.json
 /CLAUDE.md
 /.claude/
+app/other/release
+/app/src/main/jniLibs
+/sign-files

@@ -31,6 +31,9 @@ object SettingsKey {
     // dashboard
     const val DASHBOARD_ITEM_ORDER = "dashboard_item_order"
     const val DASHBOARD_DISABLED_ITEMS = "dashboard_disabled_items"
+    // network profile
+    const val WIFI_DEFAULT_PROFILE = "wifi_default_profile"
+    const val MOBILE_DEFAULT_PROFILE = "mobile_default_profile"
 
     // cache
     const val STARTED_BY_USER = "started_by_user"
