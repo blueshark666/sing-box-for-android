@@ -59,13 +59,13 @@ class WatchlistAdapter(
             Log.d("WatchlistAdapter", "Set secTypeTextView.text to: ${secTypeTextView.text}")
 
             // 设置买价
-            val bidPrice = item.priceHolder.bid
+            val bidPrice = item.actualBid
             bidTextView.text = bidPrice.toString()
             Log.d("WatchlistAdapter", "Set bidTextView.text to: ${bidTextView.text}")
             Log.d("WatchlistAdapter", "bidTextView visibility: ${bidTextView.visibility}")
 
             // 设置卖价
-            val askPrice = item.priceHolder.ask
+            val askPrice = item.actualAsk
             askTextView.text = askPrice.toString()
             Log.d("WatchlistAdapter", "Set askTextView.text to: ${askTextView.text}")
             Log.d("WatchlistAdapter", "askTextView visibility: ${askTextView.visibility}")

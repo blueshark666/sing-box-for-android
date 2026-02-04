@@ -77,7 +77,7 @@ class TransactionActivity : AppCompatActivity() {
                         // 自动填充conid和当前价格（如果有）
                         val conid = it.conid
                         // 对于买入使用卖价，卖出使用买价
-                        val price = it.priceHolder.bid // 这里可以根据交易方向选择价格，暂时默认使用买价
+                        val price = it.actualBid // 使用新的辅助属性获取实际的bid价格
                         showSubmitOrderDialog(conid, price)
                     }
                     Log.d("TransactionActivity", "Watchlist RecyclerView adapter set with ${watchlist.size} items")

@@ -83,8 +83,11 @@ class TransactionRepository {
         
         // 尝试解析数据
         return try {
+            // 尝试解析为当前的数据模型格式
             val watchlist = jsonParser.decodeFromString<List<WatchlistResponse>>(jsonString)
             Log.d("TransactionRepository", "Parsed watchlist: ${watchlist.size} items")
+            
+            // 检查解析结果
             for ((index, item) in watchlist.withIndex()) {
                 Log.d("TransactionRepository", "Watchlist item $index: symbol=${item.symbol}, secType=${item.secType}, bid=${item.priceHolder.bid}, ask=${item.priceHolder.ask}")
                 
@@ -93,6 +96,7 @@ class TransactionRepository {
                     Log.w("TransactionRepository", "Watchlist item $index has default price values, may indicate parsing issue")
                 }
             }
+            
             watchlist
         } catch (e: Exception) {
             Log.e("TransactionRepository", "Error parsing watchlist: ${e.message}")
